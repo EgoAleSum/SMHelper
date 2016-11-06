@@ -250,11 +250,11 @@ Determines if a given string matches a pattern, allowing * as wildcard.
 ````js
 let str, result
 
-str = 'hello-world-a-1
+str = 'hello-world-a-1'
 result = SMHelper.stringToCamel(str)
 // Result: helloWorldA1
 
-str = 'hello_world_a_1
+str = 'hello_world_a_1'
 result = SMHelper.stringToCamel(str)
 // Result: helloWorldA1
 ````
