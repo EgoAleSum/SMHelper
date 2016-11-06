@@ -214,7 +214,7 @@ const SMHelper = {
     },
 
     /**
-     * Take `str` and puts a backslash in front of every character that is part of the regular expression syntax.
+     * Take `str` and put a backslash in front of every character that is part of the regular expression syntax.
      * Port of the PHP function "preg_quote". See also: http://php.net/preg_quote
      * 
      * Source: Locutus
@@ -343,7 +343,7 @@ const SMHelper = {
 	},
 
     /**
-     * Convert a value to string, ensuring that the number 0 and the boolean false are treated correctly
+     * Convert a value to string, ensuring that the number 0 and the boolean false are treated correctly.
      * 
      * @param {*} val - Value to convert
      * @returns {string} String value

@@ -162,16 +162,16 @@ describe('SMHelper.js', () => {
             assert.ok(t("0b111110"), "Binary integer literal string (0b...)")
             assert.ok(t("0B111110"), "Binary integer literal string (0B...)")
         } else {
-            assert.ok(true, "Browser does not support binary integer literal (0b...)")
-            assert.ok(true, "Browser does not support binary integer literal (0B...)")
+            assert.ok(true, "Interpreter does not support binary integer literal (0b...)")
+            assert.ok(true, "Interpreter does not support binary integer literal (0B...)")
         }
 
         if (+"0o1" === 1) {
             assert.ok(t("0o76"), "Octal integer literal string (0o...)")
             assert.ok(t("0O76"), "Octal integer literal string (0O...)")
         } else {
-            assert.ok(true, "Browser does not support octal integer literal (0o...)")
-            assert.ok(true, "Browser does not support octal integer literal (0O...)")
+            assert.ok(true, "Interpreter does not support octal integer literal (0o...)")
+            assert.ok(true, "Interpreter does not support octal integer literal (0O...)")
         }
 
         assert.equal(t(new String("42")), false, "Only limited to strings and numbers")
