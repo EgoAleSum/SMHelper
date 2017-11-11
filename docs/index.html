@@ -1,0 +1,255 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <title>JSDoc: Home</title>
+
+    <script src="scripts/prettify/prettify.js"> </script>
+    <script src="scripts/prettify/lang-css.js"> </script>
+    <!--[if lt IE 9]>
+      <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+    <link type="text/css" rel="stylesheet" href="styles/prettify-tomorrow.css">
+    <link type="text/css" rel="stylesheet" href="styles/jsdoc-default.css">
+</head>
+
+<body>
+
+<div id="main">
+
+    <h1 class="page-title">Home</h1>
+
+    
+
+
+
+    
+
+
+    <h3> </h3>
+
+
+
+
+
+
+
+
+
+
+    
+
+
+
+
+    <section>
+        <article><h1>SMHelper</h1><p>Collection of JavaScript utilities</p>
+<p>This code is licensed under the terms of the BSD (2-clause) license (see LICENSE.md).</p>
+<h2>Add to your project</h2><p>Install from NPM:</p>
+<pre class="prettyprint source lang-sh"><code>npm install --save smhelper</code></pre><h2>API Guide</h2><p>Include the module with:</p>
+<pre class="prettyprint source lang-js"><code>const SMHelper = require('smhelper')</code></pre><p>The module exports the following methods:</p>
+<h3>SMHelper.buildQuerystring</h3><pre class="prettyprint source lang-js"><code>let obj = {
+    search: 'hello world',
+    page: 2,
+    marked: ['b', 'z']
+}
+let qs = SMHelper.buildQuerystring(obj)
+// Result: search=hello%20world&page=2&marked=b%2Cz</code></pre><p>This methods takes a dictionary (a set of key-value pairs) and returns a string that can be used as query string when building a URL. This method can be used together with <code>SMHelper.buildUrl</code>.</p>
+<p>Characters are escaped using the proper HTTP sequence when necessary (spaces are replaced with <code>%20</code>). This method is Unicode-safe, and supports arrays (values are separated with a comma).</p>
+<h3>SMHelper.buildUrl</h3><pre class="prettyprint source lang-js"><code>let base = 'https://example.com/'
+// You can also pass this as a string: 'api/v2/list'
+let parts = ['api', 'v2', 'list']
+let args = {
+    search: 'hello world',
+    page: 2
+}
+let url = SMHelper.buildUrl(base, parts, args)
+// Result: 
+// https://example.com/api/v2/list?search=hello%20world&page=2</code></pre><p>This method builds a full URL starting from components above:</p>
+<ul>
+<li><code>base</code> is the protocol and hostname, including <code>http(s)://</code></li>
+<li><code>parts</code> is the path, which can either be a string or an array</li>
+<li><code>args</code> is the dictionary for the query string (passed to <code>SMHelper.buildQuerystring</code>)</li>
+</ul>
+<p>Returns a full URL, escaping values when necessary.</p>
+<h3>SMHelper.cloneObject</h3><pre class="prettyprint source lang-js"><code>let obj = {
+    a: [1, 2, 3],
+    b: {
+        x: 1,
+        y: 'hello world'
+    }
+}
+let clone = SMHelper.cloneObject(obj)</code></pre><p>This method clones deeply any JavaScript object (scalar or non-scalar) that can be encoded as JSON. Since the object is cloned deeply, there is no reference to values in the original object.</p>
+<h3>SMHelper.compactObject</h3><pre class="prettyprint source lang-js"><code>let obj = { a: 'b', b: false, c: null }
+let onlyNull, result
+
+onlyNull = false
+result = SMHelper.compactObject(obj, onlyNull)
+// Result: {a: 'b'}
+
+onlyNull = true
+result = SMHelper.compactObject(obj, onlyNull)
+// Result: {a: 'b', b: false}</code></pre><p>Removes from a dictionary (deeply) all values that are false-y. When <code>onlyNull</code> is true (default: false), only values that are exactly <code>null</code> are removed.</p>
+<h3>SMHelper.getDescendantProperty</h3><pre class="prettyprint source lang-js"><code>let obj = {
+    a: 1,
+    b: {
+        x1: 10,
+        x2: {
+            y1: 'Hello world',
+            y2: [100, 200, 300]
+        }
+    }
+}
+let desc, result
+
+desc = 'b.x2.y1'
+result = SMHelper.getDescendantProperty(obj, desc)
+// Result: Hello world
+
+desc = 'b.x2.y2.2'
+result = SMHelper.getDescendantProperty(obj, desc)
+// Result: 300</code></pre><p>Returns a nested property from a dictionary or array, referenced by a string in &quot;dot notation&quot; (for example: <code>key1.key2.0</code>).</p>
+<h3>SMHelper.isNumeric</h3><pre class="prettyprint source lang-js"><code>let obj, result
+
+obj = 100
+result = SMHelper.isNumeric(obj)
+// true
+
+obj = &quot;-100.4e2&quot;
+result = SMHelper.isNumeric(obj)
+// true
+
+obj = &quot;hello world&quot;
+result = SMHelper.isNumeric(obj)
+// false</code></pre><p>Returns true if the passed value (string, number or any other object) is numeric: that is, if it can be safely converted to a float with <code>parseFloat</code>.</p>
+<h3>SMHelper.isPlainObject</h3><pre class="prettyprint source lang-js"><code>let obj, result
+
+obj = {a: 100}
+result = SMHelper.isPlainObject(obj)
+// true
+
+obj = new Date()
+result = SMHelper.isPlainObject(obj)
+// false
+
+obj = {a: new Date()}
+result = SMHelper.isPlainObject(obj)
+// true</code></pre><p>Returns true if the passed parameter is a plain JavaScript &quot;Object&quot;. This method checks only the passed object, and not its properties.</p>
+<h3>SMHelper.isScalar</h3><pre class="prettyprint source lang-js"><code>let obj, result
+
+obj = 100
+result = SMHelper.isScalar(obj)
+// true
+
+obj = &quot;hello world&quot;
+result = SMHelper.isScalar(obj)
+// true
+
+obj = {a: 100}
+result = SMHelper.isScalar(obj)
+// false
+
+obj = new String('Hello world')
+result = SMHelper.isScalar(obj)
+// false</code></pre><p>Returns true if the passed value is of a scalar type: string, number or boolean.</p>
+<h3>SMHelper.objectToDotNotation</h3><pre class="prettyprint source lang-js"><code>let obj = {
+    status: &quot;success&quot;,
+    auth: {
+        code: 23123213,
+        name: &quot;John Black&quot;,
+        keys: [10, 11]
+    }
+}
+let preserveArrays, result
+
+preserveArrays = false
+result = SMHelper.objectToDotNotation(obj, preserveArrays)
+/*
+{
+    &quot;status&quot;: &quot;success&quot;,
+    &quot;auth.code&quot;: 23123213,
+    &quot;auth.name&quot;: &quot;John Black&quot;,
+    &quot;auth.keys.0&quot;: 10,
+    &quot;auth.keys.1&quot;: 11
+}
+*/
+
+preserveArrays = true
+result = SMHelper.objectToDotNotation(obj, preserveArrays)
+/*
+{
+    &quot;status&quot;: &quot;success&quot;,
+    &quot;auth.code&quot;: 23123213,
+    &quot;auth.name&quot;: &quot;John Black&quot;,
+    &quot;auth.keys&quot;: [10, 11]
+}
+*/</code></pre><p>Flatten a dictionary to the &quot;dot notation&quot;, as used by MongoDB (see example code). If <code>preserveArrays</code> is true (default: false), arrays are not transformed to the &quot;dot notation&quot;.</p>
+<h3>SMHelper.pregQuote</h3><pre class="prettyprint source lang-js"><code>let str = &quot;*RRRING* Hello?&quot;
+let result = SMHelper.pregQuote(str)
+// Result: \\*RRRING\\* Hello\\?</code></pre><p>Takes a string and puts a backslash in front of every character that is part of the regular expression syntax. The resulting string can then be safely used as argument for <code>new RegExp()</code>.</p>
+<p>This is a port of the PHP <a href="http://php.net/preg_quote">preg_quote()</a> function, and accepts the same arguments.</p>
+<h3>SMHelper.strIs</h3><pre class="prettyprint source lang-js"><code>let pattern = 'foo*'
+let value = 'foobar'
+let result = SMHelper.strIs(pattern, value)
+// true</code></pre><p>Determines if a given string matches a pattern, allowing * as wildcard.</p>
+<h3>SMHelper.stringToCamel</h3><pre class="prettyprint source lang-js"><code>let str, result
+
+str = 'hello-world-a-1'
+result = SMHelper.stringToCamel(str)
+// Result: helloWorldA1
+
+str = 'hello_world_a_1'
+result = SMHelper.stringToCamel(str)
+// Result: helloWorldA1</code></pre><p>Converts strings with dashes or underscores (eg. 'foo-bar' or 'foo_bar') to camelCase ('fooBar').</p>
+<h3>SMHelper.stripTags</h3><pre class="prettyprint source lang-js"><code>let input = '&lt;p>Hello &lt;img src=&quot;image.gif&quot; onmouseover=&quot;some()&quot;>&lt;i>World&lt;/i>&lt;/p>'
+let allowed = '&lt;i>'
+let result = SMHelper.stripTags(input, allowed)
+// Result: Hello &lt;i>World&lt;/i></code></pre><p>Strips all non-allowed HTML tags from a string. By default, no HTML tag is allowed.</p>
+<p>This is a port of the PHP <a href="http://php.net/strip_tags">strip_tags()</a> function, and accepts the same arguments.</p>
+<h3>SMHelper.toStringSafe</h3><pre class="prettyprint source lang-js"><code>let val, result
+
+val = 0
+result = SMHelper.toStringSafe(val)
+// Result: &quot;0&quot; (as string)
+
+val = false
+result = SMHelper.toStringSafe(val)
+// Result: &quot;false&quot; (as string)</code></pre><p>Converts any value to string, ensuring that the number 0 and the boolean false are treated correctly.</p>
+<h3>SMHelper.updatePropertyInObject</h3><pre class="prettyprint source lang-js"><code>let obj = {
+    hello: 'aa',
+    test: {
+        a: 'b',
+        c: 0,
+        d: {
+            x: 1
+        }
+    }
+}
+let property = 'test.d.x'
+let value = [0, 1, 2]
+SMHelper.updatePropertyInObject(obj, property, value)
+console.log(obj.test.d.x)
+// Output: [ 0, 1, 2 ]</code></pre><p>Updates a property (represented in the &quot;dot notation&quot;) in an object, modifying the original object. If the property doesn't exist in the object, it's created.</p></article>
+    </section>
+
+
+
+
+
+
+</div>
+
+<nav>
+    <h2><a href="index.html">Home</a></h2>
+</nav>
+
+<br class="clear">
+
+<footer>
+    Documentation generated by <a href="https://github.com/jsdoc3/jsdoc">JSDoc 3.5.5</a>
+</footer>
+
+<script> prettyPrint(); </script>
+<script src="scripts/linenumber.js"> </script>
+</body>
+</html>
