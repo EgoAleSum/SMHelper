@@ -50,6 +50,8 @@ describe('SMHelper.js', () => {
         SMHelper.buildUrl('http://example.com/', 'hello/world').should.be.equal('http://example.com/hello/world')
         SMHelper.buildUrl('http://example.com/', ['hello', 'world']).should.be.equal('http://example.com/hello/world')
         SMHelper.buildUrl('http://example.com/', ['he llo', 'world']).should.be.equal('http://example.com/he%20llo/world')
+        SMHelper.buildUrl('http://example.com/', 'hello/world', {foo: 'bar', hello: 'world'}).should.be.equal('http://example.com/hello/world?foo=bar&hello=world')
+        SMHelper.buildUrl('http://example.com/', 'hello/world', {foo: 'bar', hello: ['world', 'worlds']}).should.be.equal('http://example.com/hello/world?foo=bar&hello=world%2Cworlds')
     })
 
     it('cloneObject should clone an object', () => {
@@ -62,6 +64,9 @@ describe('SMHelper.js', () => {
         // Ensure it's not just a reference
         startingObject.b.y[0] = 99
         assert.notDeepStrictEqual(startingObject, clone)
+
+        // Cloning scalars
+        assert.deepStrictEqual('hello', SMHelper.cloneObject('hello'))
     })
 
     it('compactObject should remove empty properties from an object', () => {
@@ -318,6 +323,8 @@ describe('SMHelper.js', () => {
     })
 
     it('toStringSafe should convert values to string', () => {
+        // Note that the "npm run test" command sets TZ to Etc/UTC
+
         SMHelper.toStringSafe('hello world').should.be.equal('hello world')
         SMHelper.toStringSafe(100).should.be.equal('100')
         SMHelper.toStringSafe(null).should.be.equal('')
@@ -327,7 +334,7 @@ describe('SMHelper.js', () => {
         SMHelper.toStringSafe(undefined).should.be.equal('')
         SMHelper.toStringSafe(Infinity).should.be.equal('Infinity')
         SMHelper.toStringSafe(-Infinity).should.be.equal('-Infinity')
-        SMHelper.toStringSafe(new Date('2016-02-29T11:55:00-05:00')).should.be.equal('Mon Feb 29 2016 11:55:00 GMT-0500 (EST)')
+        SMHelper.toStringSafe(new Date('2016-02-29T11:55:00-05:00')).should.be.equal('Mon Feb 29 2016 16:55:00 GMT+0000 (UTC)')
     })
 
     it('updatePropertyInObject should update the specified property in the object', () => {

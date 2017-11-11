@@ -13,6 +13,7 @@ const SMHelper = {
     buildQuerystring: (obj) => {
         let str = []
         for (let p in obj) {
+            /* istanbul ignore else */
             if (obj.hasOwnProperty(p)) {
                 // Skip undefined
                 if (typeof obj[p] === 'undefined') {
@@ -86,6 +87,7 @@ const SMHelper = {
         let recursive = (obj) => {
             for (let key in obj) {
                 // Exclude non-own properties
+                /* istanbul ignore next */
                 if (!obj.hasOwnProperty(key)) {
                     continue
                 }
