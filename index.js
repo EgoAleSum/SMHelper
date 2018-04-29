@@ -21,7 +21,7 @@ const SMHelper = {
                 }
 
                 // Handle arrays
-                if (Array.isArray(obj[p])) {
+                if (Array.isArray(obj[p]) && obj[p].length > 1) {
                     for (let i in obj[p]) {
                         let val = obj[p][i]
                         // Special case: handle the integer 0
@@ -36,6 +36,10 @@ const SMHelper = {
                     // Special case: handle the integer 0
                     if (val === 0) {
                         val = '0'
+                    }
+                    // Handle arrays with one element
+                    if (Array.isArray(val)) {
+                        val = val[0]
                     }
                     str.push(encodeURIComponent(p) + (val ? ('=' + encodeURIComponent(val)) : ''))
                 }

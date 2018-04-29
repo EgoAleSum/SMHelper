@@ -36,6 +36,8 @@ describe('SMHelper.js', () => {
         SMHelper.buildQuerystring({ 'foo bar': 'bar+a' }).should.be.equal('foo%20bar=bar%2Ba')
         SMHelper.buildQuerystring({ unicode: '\uF8FF' }).should.be.equal('unicode=%EF%A3%BF')
         SMHelper.buildQuerystring({ array: ['a', 'b'] }).should.be.equal('array[]=a&array[]=b')
+        SMHelper.buildQuerystring({ array: ['single'] }).should.be.equal('array=single')
+        SMHelper.buildQuerystring({ empty: [''] }).should.be.equal('empty')
         SMHelper.buildQuerystring({ foo: 1 }).should.be.equal('foo=1')
         SMHelper.buildQuerystring({ foo: 0 }).should.be.equal('foo=0')
         SMHelper.buildQuerystring({ foo: 0, test: undefined }).should.be.equal('foo=0')
