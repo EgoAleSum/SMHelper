@@ -36,7 +36,7 @@ let qs = SMHelper.buildQuerystring(obj)
 
 This methods takes a dictionary (a set of key-value pairs) and returns a string that can be used as query string when building a URL. This method can be used together with `SMHelper.buildUrl`.
 
-Characters are escaped using the proper HTTP sequence when necessary (spaces are replaced with `%20`). This method is Unicode-safe, and supports arrays (values are separated with a comma).
+Characters are escaped using the proper HTTP sequence when necessary (spaces are replaced with `%20`). This method is Unicode-safe, and supports arrays .
 
 ### SMHelper.buildUrl
 
