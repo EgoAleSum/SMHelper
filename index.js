@@ -11,7 +11,7 @@ const SMHelper = {
      * @returns {string} The querystring that can be appended to URLs
      */
     buildQuerystring: (obj) => {
-        let str = []
+        const str = []
         for (let p in obj) {
             /* istanbul ignore else */
             if (obj.hasOwnProperty(p)) {
@@ -20,12 +20,25 @@ const SMHelper = {
                     continue
                 }
 
-                // Special case: handle the integer 0
-                if (obj[p] === 0) {
-                    obj[p] = '0'
+                // Handle arrays
+                if (Array.isArray(obj[p])) {
+                    for (let i in obj[p]) {
+                        let val = obj[p][i]
+                        // Special case: handle the integer 0
+                        if (val === 0) {
+                            val = '0'
+                        }
+                        str.push(encodeURIComponent(p) + '[]' + (val ? ('=' + encodeURIComponent(val)) : ''))
+                    }
                 }
-
-                str.push(encodeURIComponent(p) + ((obj[p]) ? ('=' + encodeURIComponent(obj[p])) : ''))
+                else {
+                    let val = obj[p]
+                    // Special case: handle the integer 0
+                    if (val === 0) {
+                        val = '0'
+                    }
+                    str.push(encodeURIComponent(p) + (val ? ('=' + encodeURIComponent(val)) : ''))
+                }
             }
         }
         return str.join('&')

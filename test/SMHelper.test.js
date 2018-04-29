@@ -35,7 +35,7 @@ describe('SMHelper.js', () => {
         SMHelper.buildQuerystring({ foo: 'bar a onda' }).should.be.equal('foo=bar%20a%20onda')
         SMHelper.buildQuerystring({ 'foo bar': 'bar+a' }).should.be.equal('foo%20bar=bar%2Ba')
         SMHelper.buildQuerystring({ unicode: '\uF8FF' }).should.be.equal('unicode=%EF%A3%BF')
-        SMHelper.buildQuerystring({ array: ['a', 'b'] }).should.be.equal('array=a%2Cb')
+        SMHelper.buildQuerystring({ array: ['a', 'b'] }).should.be.equal('array[]=a&array[]=b')
         SMHelper.buildQuerystring({ foo: 1 }).should.be.equal('foo=1')
         SMHelper.buildQuerystring({ foo: 0 }).should.be.equal('foo=0')
         SMHelper.buildQuerystring({ foo: 0, test: undefined }).should.be.equal('foo=0')
@@ -51,7 +51,7 @@ describe('SMHelper.js', () => {
         SMHelper.buildUrl('http://example.com/', ['hello', 'world']).should.be.equal('http://example.com/hello/world')
         SMHelper.buildUrl('http://example.com/', ['he llo', 'world']).should.be.equal('http://example.com/he%20llo/world')
         SMHelper.buildUrl('http://example.com/', 'hello/world', {foo: 'bar', hello: 'world'}).should.be.equal('http://example.com/hello/world?foo=bar&hello=world')
-        SMHelper.buildUrl('http://example.com/', 'hello/world', {foo: 'bar', hello: ['world', 'worlds']}).should.be.equal('http://example.com/hello/world?foo=bar&hello=world%2Cworlds')
+        SMHelper.buildUrl('http://example.com/', 'hello/world', {foo: 'bar', hello: ['world', 'worlds']}).should.be.equal('http://example.com/hello/world?foo=bar&hello[]=world&hello[]=worlds')
     })
 
     it('cloneObject should clone an object', () => {
