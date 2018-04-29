@@ -1,6 +1,6 @@
 {
   "name": "smhelper",
-  "version": "1.0.2",
+  "version": "1.0.3",
   "description": "Collection of JavaScript utilities",
   "main": "index.js",
   "directories": {
@@ -24,7 +24,7 @@
     "coveralls": "3.0.x",
     "istanbul": "0.4.x",
     "jsdoc": "3.5.x",
-    "mocha": "4.1.x",
+    "mocha": "5.1.x",
     "mocha-lcov-reporter": "1.3.x",
     "should": "13.2.x"
   }
