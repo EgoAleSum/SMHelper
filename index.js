@@ -12,7 +12,7 @@ const SMHelper = {
      */
     buildQuerystring: (obj) => {
         const str = []
-        for (let p in obj) {
+        for (const p in obj) {
             /* istanbul ignore else */
             if (obj.hasOwnProperty(p)) {
                 // Skip undefined
@@ -22,7 +22,7 @@ const SMHelper = {
 
                 // Handle arrays
                 if (Array.isArray(obj[p]) && obj[p].length > 1) {
-                    for (let i in obj[p]) {
+                    for (const i in obj[p]) {
                         let val = obj[p][i]
                         // Special case: handle the integer 0
                         if (val === 0) {
@@ -101,8 +101,8 @@ const SMHelper = {
      * @param {boolean} [onlyNull=false] - If true, remove only values that are strictly `null`
      */
     compactObject: (obj, onlyNull) => {
-        let recursive = (obj) => {
-            for (let key in obj) {
+        const recursive = (obj) => {
+            for (const key in obj) {
                 // Exclude non-own properties
                 /* istanbul ignore next */
                 if (!obj.hasOwnProperty(key)) {
@@ -136,7 +136,7 @@ const SMHelper = {
      * @returns {*} Value of the referenced property or `undefined`
      */
     getDescendantProperty: (obj, desc) => {
-        let arr = desc.split('.')
+        const arr = desc.split('.')
         while (arr.length && (obj = obj[arr.shift()])); // Leave the ; here!
         return obj
     },
@@ -156,14 +156,14 @@ const SMHelper = {
     isNumeric: (obj) => {
         let type
         if (obj == null) {
-            type = obj + ""
+            type = obj + ''
         }
         else {
-            type = typeof obj === "object" || typeof obj === "function" ?
-                "object" : typeof obj
+            type = typeof obj === 'object' || typeof obj === 'function' ?
+                'object' : typeof obj
         }
 
-        return (type === "number" || type === "string") &&
+        return (type === 'number' || type === 'string') &&
             // parseFloat NaNs numeric-cast false positives ("")
             // ...but misinterprets leading-number strings, particularly hex literals ("0x...")
             // subtraction forces infinities to NaN
@@ -208,12 +208,12 @@ const SMHelper = {
      * @returns {object} Flattened dictionary in "dot notation"
      */
     objectToDotNotation: (obj, preserveArrays) => {
-        let res = {}
+        const res = {}
 
-        let recursive = (obj, current) => {
-            for (let key in obj) {
-                let value = obj[key]
-                let newKey = (current ? current + '.' + key : key)
+        const recursive = (obj, current) => {
+            for (const key in obj) {
+                const value = obj[key]
+                const newKey = (current ? current + '.' + key : key)
                 if (value && typeof value === 'object') {
                     if (preserveArrays && Array.isArray(value)) {
                         res[newKey] = value
@@ -284,7 +284,7 @@ const SMHelper = {
         // Asterisks are translated into zero-or-more regular expression wildcards
         // to make it convenient to check if the strings starts with the given
         // pattern such as "library/*", making any string check convenient.
-        let regex = new RegExp('^' + pattern.replace(/\\\*/g, '.*') + '$')
+        const regex = new RegExp('^' + pattern.replace(/\\\*/g, '.*') + '$')
 
         return !!value.match(regex)
     },
@@ -298,8 +298,8 @@ const SMHelper = {
      * @returns {string} String converted to camelCase
      */ 
     stringToCamel: (str) => {
-        return str.replace(/(\-[a-z0-9]|_[a-z0-9])/g, ($1) => {
-            return $1.toUpperCase().replace(/\-|_/g, '')
+        return str.replace(/(-[a-z0-9]|_[a-z0-9])/g, ($1) => {
+            return $1.toUpperCase().replace(/-|_/g, '')
         })
     },
 
@@ -316,7 +316,7 @@ const SMHelper = {
      * @param {string} [allowed] - String listing allowed HTML tags, for example `<br>`
      * @returns {string} String with HTML tags stripped
      */
-	stripTags: (input, allowed) => {
+    stripTags: (input, allowed) => {
         //  discuss at: http://locutus.io/php/strip_tags/
         // original by: Kevin van Zonneveld (http://kvz.io)
         // improved by: Luke Godfrey
@@ -353,13 +353,13 @@ const SMHelper = {
         // making sure the allowed arg is a string containing only tags in lowercase (<a><b><c>)
         allowed = (((allowed || '') + '').toLowerCase().match(/<[a-z][a-z0-9]*>/g) || []).join('')
 
-        let tags = /<\/?([a-z][a-z0-9]*)\b[^>]*>/gi
-        let commentsAndPhpTags = /<!--[\s\S]*?-->|<\?(?:php)?[\s\S]*?\?>/gi
+        const tags = /<\/?([a-z][a-z0-9]*)\b[^>]*>/gi
+        const commentsAndPhpTags = /<!--[\s\S]*?-->|<\?(?:php)?[\s\S]*?\?>/gi
 
         return input.replace(commentsAndPhpTags, '').replace(tags, ($0, $1) => {
             return allowed.indexOf('<' + $1.toLowerCase() + '>') > -1 ? $0 : ''
         })
-	},
+    },
 
     /**
      * Convert a value to string, ensuring that the number 0 and the boolean false are treated correctly.
@@ -369,11 +369,11 @@ const SMHelper = {
      */
     toStringSafe: (val) => {
         // Ensure str is a string
-        if(typeof val == 'number' && !isNaN(val)) {
+        if (typeof val == 'number' && !isNaN(val)) {
             // Numbers have a special treatment to avoid having 0 converted to null
             val = val.toString()
         }
-        else if(val === false) {
+        else if (val === false) {
             val = 'false'
         }
         else {
@@ -393,8 +393,8 @@ const SMHelper = {
      */
     updatePropertyInObject: (obj, property, value) => {
         // Explode the dot notation
-        let parts = property.split('.')
-        let last = parts.pop()
+        const parts = property.split('.')
+        const last = parts.pop()
 
         // Get the destination object
         let dest = obj

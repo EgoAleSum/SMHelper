@@ -55,7 +55,7 @@
 }
 let qs = SMHelper.buildQuerystring(obj)
 // Result: search=hello%20world&page=2&marked=b%2Cz</code></pre><p>This methods takes a dictionary (a set of key-value pairs) and returns a string that can be used as query string when building a URL. This method can be used together with <code>SMHelper.buildUrl</code>.</p>
-<p>Characters are escaped using the proper HTTP sequence when necessary (spaces are replaced with <code>%20</code>). This method is Unicode-safe, and supports arrays (values are separated with a comma).</p>
+<p>Characters are escaped using the proper HTTP sequence when necessary (spaces are replaced with <code>%20</code>). This method is Unicode-safe, and supports arrays .</p>
 <h3>SMHelper.buildUrl</h3><pre class="prettyprint source lang-js"><code>let base = 'https://example.com/'
 // You can also pass this as a string: 'api/v2/list'
 let parts = ['api', 'v2', 'list']
