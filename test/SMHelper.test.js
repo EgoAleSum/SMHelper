@@ -365,6 +365,12 @@ describe('SMHelper.js', () => {
             obj,
             {hello: 'aa', test: {a: 'b', c: 0, d: {obj: 1}}, test2: {aa: {bb: 'world'}}}
         )
+
+        // Trying to update a property of something that is not an object
+        obj = {hello: 'aa', test: {a: 'b', c: 1, d: {obj: 1}}}
+        assert.throws(() => {
+            SMHelper.updatePropertyInObject(obj, 'test.c.x', -10)
+        }, /cannot update nested property of something that is not an object/i)
     })
 
 })

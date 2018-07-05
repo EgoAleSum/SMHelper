@@ -399,10 +399,15 @@ const SMHelper = {
         // Get the destination object
         let dest = obj
         for (let i = 0; i < parts.length; i++) {
-            if (!dest[parts[i]]) {
+            if (dest[parts[i]] === undefined) {
                 dest[parts[i]] = {}
             }
             dest = dest[parts[i]]
+
+            // If the object is not a JS plain object, we can't update nested properties
+            if (!SMHelper.isPlainObject(dest)) {
+                throw Error('Cannot update nested property of something that is not an object')
+            }
         }
 
         // Update the value
