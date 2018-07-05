@@ -61,13 +61,13 @@ const SMHelper = {
                 }
                 else {
                     let val = obj[p]
-                    // Special case: handle the integer 0
-                    if (val === 0) {
-                        val = '0'
-                    }
                     // Handle arrays with one element
                     if (Array.isArray(val)) {
                         val = val[0]
+                    }
+                    // Special case: handle the integer 0
+                    if (val === 0) {
+                        val = '0'
                     }
                     str.push(encodeURIComponent(p) + (val ? ('=' + encodeURIComponent(val)) : ''))
                 }
@@ -427,10 +427,15 @@ const SMHelper = {
         // Get the destination object
         let dest = obj
         for (let i = 0; i &lt; parts.length; i++) {
-            if (!dest[parts[i]]) {
+            if (dest[parts[i]] === undefined) {
                 dest[parts[i]] = {}
             }
             dest = dest[parts[i]]
+
+            // If the object is not a JS plain object, we can't update nested properties
+            if (!SMHelper.isPlainObject(dest)) {
+                throw Error('Cannot update nested property of something that is not an object')
+            }
         }
 
         // Update the value
