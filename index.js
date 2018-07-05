@@ -33,13 +33,13 @@ const SMHelper = {
                 }
                 else {
                     let val = obj[p]
-                    // Special case: handle the integer 0
-                    if (val === 0) {
-                        val = '0'
-                    }
                     // Handle arrays with one element
                     if (Array.isArray(val)) {
                         val = val[0]
+                    }
+                    // Special case: handle the integer 0
+                    if (val === 0) {
+                        val = '0'
                     }
                     str.push(encodeURIComponent(p) + (val ? ('=' + encodeURIComponent(val)) : ''))
                 }
