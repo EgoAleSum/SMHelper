@@ -338,7 +338,10 @@ describe('SMHelper.js', () => {
         SMHelper.toStringSafe(undefined).should.be.equal('')
         SMHelper.toStringSafe(Infinity).should.be.equal('Infinity')
         SMHelper.toStringSafe(-Infinity).should.be.equal('-Infinity')
-        SMHelper.toStringSafe(new Date('2016-02-29T11:55:00-05:00')).should.be.equal('Mon Feb 29 2016 16:55:00 GMT+0000 (UTC)')
+        SMHelper.toStringSafe(new Date('2016-02-29T11:55:00-05:00')).should.be.equalOneOf(
+            'Mon Feb 29 2016 16:55:00 GMT+0000 (UTC)',
+            'Mon Feb 29 2016 16:55:00 GMT+0000 (Coordinated Universal Time)'
+        )
     })
 
     it('updatePropertyInObject should update the specified property in the object', () => {
