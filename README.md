@@ -2,7 +2,13 @@
 
 Collection of JavaScript utilities
 
+This module is written in TypeScript and transpiled to JavaScript. All typings are available alongside the code.
+
 This code is licensed under the terms of the MIT license (see LICENSE.md).
+
+## Full documentation
+
+Full documentation is available on [GitHub pages](https://italypaleale.github.io/SMHelper/).
 
 ## Add to your project
 

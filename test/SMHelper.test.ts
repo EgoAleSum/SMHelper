@@ -1,10 +1,7 @@
-/*eslint-env mocha */
-
-'use strict'
-
-require('should')
-const assert = require('assert')
-const SMHelper = require('../index')
+import 'mocha'
+import 'should'
+import assert from 'assert'
+import SMHelper from '../src/SMHelper'
 
 describe('SMHelper.js', () => {
 

@@ -1,15 +1,21 @@
 {
   "name": "smhelper",
-  "version": "1.1.4",
+  "version": "1.2.0",
   "description": "Collection of JavaScript utilities",
-  "main": "index.js",
+  "main": "dist/SMHelper.js",
   "directories": {
     "test": "test"
   },
   "scripts": {
-    "test": "TZ=Etc/UTC ./node_modules/.bin/istanbul cover ./node_modules/.bin/_mocha --report html -- -R spec",
-    "eslint": "./node_modules/.bin/eslint -c .eslintrc.yml .",
-    "jsdoc": "./node_modules/.bin/jsdoc -c .jsdoc.json"
+    "compile": "npm run tsc",
+    "docs": "npm run typedoc",
+    "tsc": "./node_modules/.bin/tsc",
+    "test": "TZ=Etc/UTC ./node_modules/.bin/ts-node node_modules/istanbul/lib/cli.js cover -e .ts  -x \"*.d.ts\" -x \"*.test.ts\" ./node_modules/.bin/_mocha --report html -- -R test test/**/*.test.ts",
+    "test-nocov": "TZ=Etc/UTC ./node_modules/.bin/_mocha -r ts-node/register test/**/*.test.ts",
+    "lint": "npm run tslint",
+    "tslint": "./node_modules/.bin/tslint -p tsconfig.json",
+    "typedoc": "./node_modules/.bin/typedoc --name SMTransliterator --out docs/ --readme README.md --target ES6 --module commonjs --mode modules src",
+    "prepublishOnly": "npm run tslint && npm run compile && npm run test"
   },
   "repository": {
     "type": "git",
@@ -22,12 +28,16 @@
   },
   "homepage": "https://github.com/ItalyPaleAle/SMHelper",
   "devDependencies": {
+    "@types/mocha": "^5.2.5",
+    "@types/node": "^10.9.1",
+    "@types/xregexp": "^3.0.29",
     "coveralls": "^3.0.2",
-    "eslint": "^5.2.0",
-    "istanbul": "^0.4.5",
-    "jsdoc": "^3.5.5",
+    "istanbul": "v1.1.0-alpha.1",
     "mocha": "^5.2.0",
-    "mocha-lcov-reporter": "^1.3.0",
-    "should": "^13.2.2"
+    "should": "^13.2.3",
+    "ts-node": "^7.0.1",
+    "tslint": "^5.11.0",
+    "typedoc": "^0.12.0",
+    "typescript": "^3.0.1"
   }
 }
