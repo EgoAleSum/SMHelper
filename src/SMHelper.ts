@@ -87,7 +87,7 @@ namespace SMHelper {
      * @param obj - The object to clone (any scalar or non-scalar type)
      * @returns The cloned object
      */
-    export function cloneObject(obj: unknown): unknown {
+    export function cloneObject(obj: any): any {
         // Return 'obj' itself if it's a scalar type or 'undefined'
         if (obj === undefined || SMHelper.isScalar(obj)) {
             return obj
