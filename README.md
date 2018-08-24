@@ -1,5 +1,8 @@
 # SMHelper
 
+[![Dependency Status](https://david-dm.org/ItalyPaleAle/SMHelper.svg?style=flat)](https://david-dm.org/ItalyPaleAle/SMHelper)
+[![devDependency Status](https://david-dm.org/ItalyPaleAle/SMHelper/dev-status.svg?style=flat)](https://david-dm.org/ItalyPaleAle/SMHelper#info=devDependencies)
+
 Collection of JavaScript utilities
 
 This module is written in TypeScript and transpiled to JavaScript. All typings are available alongside the code.
