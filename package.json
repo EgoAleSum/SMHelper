@@ -14,7 +14,7 @@
     "test-nocov": "TZ=Etc/UTC ./node_modules/.bin/_mocha -r ts-node/register test/**/*.test.ts",
     "lint": "npm run tslint",
     "tslint": "./node_modules/.bin/tslint -p tsconfig.json",
-    "typedoc": "./node_modules/.bin/typedoc --name SMTransliterator --out docs/ --readme README.md --target ES6 --module commonjs --mode modules src",
+    "typedoc": "./node_modules/.bin/typedoc --name SMHelper --out docs/ --readme README.md --target ES6 --module commonjs --mode modules src",
     "prepublishOnly": "npm run tslint && npm run compile && npm run test"
   },
   "repository": {
