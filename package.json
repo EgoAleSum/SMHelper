@@ -1,6 +1,6 @@
 {
   "name": "smhelper",
-  "version": "1.2.1",
+  "version": "1.2.2",
   "description": "Collection of JavaScript utilities",
   "main": "dist/SMHelper.js",
   "types": "dist/SMHelper.d.ts",

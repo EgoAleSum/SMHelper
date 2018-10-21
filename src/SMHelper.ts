@@ -138,13 +138,20 @@ namespace SMHelper {
      * @returns Value of the referenced property or `undefined`
      */
     export function getDescendantProperty(obj: SMHelperDictionaryType, desc: string): any {
-        // Inspired by Source: http://stackoverflow.com/a/8052100/192024
-        const arr = desc.split('.')
-        let i = true
-        while (i) {
-            i = (arr.length && (obj = obj[arr.shift()]))
+        // Pointer
+        let val = obj
+
+        // Split the "desc" into parts
+        const parts = desc.split('.')
+
+        // Find the nested property
+        let i = 0
+        while (val && i < parts.length) {
+            val = val[parts[i]]
+            i++
         }
-        return obj
+
+        return val
     }
 
     /**
