@@ -30,7 +30,7 @@
   "homepage": "https://github.com/ItalyPaleAle/SMHelper",
   "devDependencies": {
     "@types/mocha": "^5.2.5",
-    "@types/node": "^10.9.1",
+    "@types/node": "^10.12.0",
     "@types/xregexp": "^3.0.29",
     "coveralls": "^3.0.2",
     "istanbul": "v1.1.0-alpha.1",
@@ -38,7 +38,7 @@
     "should": "^13.2.3",
     "ts-node": "^7.0.1",
     "tslint": "^5.11.0",
-    "typedoc": "^0.12.0",
-    "typescript": "^3.0.1"
+    "typedoc": "^0.13.0",
+    "typescript": "^3.1.3"
   }
 }
