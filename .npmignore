@@ -5,6 +5,8 @@
 docs
 test
 coverage
+.nyc_output
 src
 tsconfig.json
 tslint.json
+.jsdoc.json
